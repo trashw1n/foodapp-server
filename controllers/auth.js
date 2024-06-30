@@ -38,7 +38,13 @@ const login = async (req, res) => {
     }
     const JWT_SECRET = role === 'staff'? process.env.JWT_SECRET_S:process.env.JWT_SECRET_U;
     const token = jwt.sign({name, id}, JWT_SECRET);
-    res.cookie('token', token);
+    res.cookie('token', token, 
+      {
+        maxAge: 1000 * 60 * 60, 
+        httpOnly: true, 
+        sameSite: 'strict' 
+      }
+     );
     res.status(200).json({msg: "success"});
 }
 
