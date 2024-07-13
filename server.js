@@ -9,9 +9,11 @@ const ordersRouter = require('./routes/orders');
 
 const notFoundMiddleware = require('./middleware/not-found');
 
-const cookieParser = require('cookie-parser');
-app.use(cookieParser());   
-app.use(cors({origin: process.env.ORIGIN_HOST, credentials: true}));
+app.use(cors({
+  origin: process.env.ORIGIN_HOST, 
+  credentials: true, 
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use('/api/menu', menuRouter);
